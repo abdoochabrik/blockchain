@@ -1,5 +1,6 @@
 package first;
 
+import java.security.Security;
 import java.util.ArrayList;
 
 import com.google.gson.GsonBuilder;
@@ -7,15 +8,16 @@ import com.google.gson.GsonBuilder;
 public class BlockChain {
 	
 	public static ArrayList<Block> blockchain = new ArrayList<Block>(); 
-
 	public static int difficulty = 5;
+	public static Wallet walletA;
+	public static Wallet walletB;
 	
 	
 	public static void main(String[] args) {
 		
 		
 		
-		Block first = new Block("aaa","bbbb",5);
+	/*	Block first = new Block("aaa","bbbb",5);
 		Block second = new Block(first.hash,"bbbb",6);
 		Block third = new Block(second.hash,"ccc",7);
 		System.out.println("first hash : " + first.calculateHash());
@@ -49,7 +51,20 @@ public class BlockChain {
         //System.out.println( secondBlock.hash);
         //System.out.println( thirdBlock.hash);*/
 		
-		
+		Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider()); 
+		//Create the new wallets
+		walletA = new Wallet();
+		walletB = new Wallet();
+		//Test public and private keys
+		System.out.println("Private and public keys:");
+		System.out.println(StringUtil.getStringFromKey(walletA.pvkey));
+		System.out.println(StringUtil.getStringFromKey(walletA.pbkey));
+		//Create a test transaction from WalletA to walletB 
+		Transaction transaction = new Transaction(walletA.pbkey, walletB.pbkey, 5, null);
+		transaction.generateSignature(walletA.pvkey);
+		//Verify the signature works and verify it from the public key
+		System.out.println("Is signature verified");
+		System.out.println(transaction.verifiySignature());	
 		
 		
 	}

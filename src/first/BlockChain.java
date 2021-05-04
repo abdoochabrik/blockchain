@@ -9,8 +9,8 @@ public class BlockChain {
 	
 	public static ArrayList<Block> blockchain = new ArrayList<Block>(); 
 	public static int difficulty = 5;
-	public static Wallet walletA;
-	public static Wallet walletB;
+	public static Wallet wallet1;
+	public static Wallet wallet2;
 	
 	
 	public static void main(String[] args) {
@@ -53,15 +53,15 @@ public class BlockChain {
 		
 		Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider()); 
 		//Create the new wallets
-		walletA = new Wallet();
-		walletB = new Wallet();
+		wallet1 = new Wallet();
+		wallet2 = new Wallet();
 		//Test public and private keys
 		System.out.println("Private and public keys:");
-		System.out.println(StringUtil.getStringFromKey(walletA.pvkey));
-		System.out.println(StringUtil.getStringFromKey(walletA.pbkey));
+		System.out.println(StringUtil.getStringFromKey(wallet1.pvkey));
+		System.out.println(StringUtil.getStringFromKey(wallet1.pbkey));
 		//Create a test transaction from WalletA to walletB 
-		Transaction transaction = new Transaction(walletA.pbkey, walletB.pbkey, 5, null);
-		transaction.generateSignature(walletA.pvkey);
+		Transaction transaction = new Transaction(wallet1.pbkey, wallet2.pbkey, 5, null);
+		transaction.generateSignature(wallet1.pvkey);
 		//Verify the signature works and verify it from the public key
 		System.out.println("Is signature verified");
 		System.out.println(transaction.verifiySignature());	

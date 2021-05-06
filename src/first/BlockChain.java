@@ -2,6 +2,7 @@ package first;
 
 import java.security.Security;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.google.gson.GsonBuilder;
 
@@ -11,7 +12,8 @@ public class BlockChain {
 	public static int difficulty = 5;
 	public static Wallet wallet1;
 	public static Wallet wallet2;
-	
+	public static HashMap<String,TransactionOutput> UTXOs = new HashMap<String,TransactionOutput>(); //list of all unspent transactions. 
+	public static float minimumTransaction = 0.1f;
 	
 	public static void main(String[] args) {
 		

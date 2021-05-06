@@ -6,13 +6,14 @@ public class Wallet {
 	
 	public PrivateKey pvkey;
 	public PublicKey pbkey;
-	public Wallet(){
-		
+	
+	public Wallet(){	
 		generateKeyPair();	
 	}
 		
 	public void generateKeyPair() {
 		try {
+			
 			KeyPairGenerator keyGen = KeyPairGenerator.getInstance("ECDSA","BC");
 			SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
 			ECGenParameterSpec ecSpec = new ECGenParameterSpec("prime192v1");

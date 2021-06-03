@@ -43,6 +43,7 @@ public class Transaction {
 		String data = StringUtil.getStringFromKey(sender) + StringUtil.getStringFromKey(receiver) + Float.toString(value)	;
 		return StringUtil.verifyECDSASig(sender, data, signature);
 	}
+	
 public boolean processTransaction() {
 		
 		if(verifiySignature() == false) {

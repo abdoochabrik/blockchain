@@ -3,6 +3,7 @@ import java.security.*;
 import java.security.spec.ECGenParameterSpec;
 import java.security.spec.ECGenParameterSpec;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,12 +11,19 @@ public class Wallet {
 	
 	public PrivateKey pvkey;
 	public PublicKey pbkey;
+	public Date Createddate; 
+	public Date Updatedteddate; 
 	public HashMap<String,TransactionOutput> UTXOs = new HashMap<String,TransactionOutput>(); //only UTXOs owned by this wallet.
 		
 	public Wallet(){	
-		generateKeyPair();	
+		generateKeyPair();
+		Createddate = new Date();
 	}
 		
+	public void setUpdateddate(Date date) {
+		this.Updatedteddate = date;
+	}
+	
 	public void generateKeyPair() {
 		try {
 			

@@ -11,6 +11,7 @@ public class Transaction {
 	public float value;
 	public byte[] signature;
 	
+	
 	public ArrayList<TransactionInput> inputs = new ArrayList<TransactionInput>();
 	public ArrayList<TransactionOutput> outputs = new ArrayList<TransactionOutput>();
 	

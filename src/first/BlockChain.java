@@ -1,9 +1,12 @@
 package first;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.security.Security;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Random;
 
 import com.google.gson.GsonBuilder;
 
@@ -11,27 +14,51 @@ public class BlockChain extends Thread{
 	
 	public static ArrayList<Block> blockchain = new ArrayList<Block>();
 	public static HashMap<String,TransactionOutput> UTXOs = new HashMap<String,TransactionOutput>();
-	
+	public static  ArrayList<Wallet> wallets = new ArrayList<Wallet>();
 	public static int difficulty = 3;
 	public static float minimumTransaction = 0.1f;
-	public static Wallet walletA;
+	//public static Wallet walletA;
 	public static Wallet walletB;
 	public static Transaction genesisTransaction;
 
-	public static void main(String[] args) throws InterruptedException {	
+	public static void main(String[] args) throws InterruptedException, IOException {	
 		//add our blocks to the blockchain ArrayList:
 		Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider()); //Setup Bouncey castle as a Security Provider
 		Thread thread = new Thread();
 		//Create wallets:
-		//aprés on va creer une liste de wallets (50)
-		walletA = new Wallet();
-		thread.sleep(3000);
+		
+		Wallet walletA = new Wallet();
+		//thread.sleep(3000);
 		walletB = new Wallet();		
 		Wallet coinbase = new Wallet();
 		
+		
+		FileWriter myWriter = new FileWriter("result.txt");	
+		for (int i = 0; i < 2094; i++) {
+			  wallets.add(i, new Wallet());
+			  Wallet w =  wallets.get(i);
+			  Random rd = new Random();
+			  double Dbalance = rd.nextDouble() * (10000 - 1000) + 1000;
+			  float balance = (float) Dbalance;
+			  //float balance = (float) 10.1;
+			  try {
+			  genesisTransaction = new Transaction(coinbase.pbkey, w.pbkey, balance, null);
+			  genesisTransaction.generateSignature(coinbase.pvkey);	 //manually sign the genesis transaction	
+			  genesisTransaction.transactionId = "0"; //manually set the transaction id
+			  genesisTransaction.outputs.add(new TransactionOutput(genesisTransaction.receiver, genesisTransaction.value, genesisTransaction.transactionId)); //manually add the Transactions Output
+			  UTXOs.put(genesisTransaction.outputs.get(0).id, genesisTransaction.outputs.get(0));
+			 // System.out.println("balance of wallet number " +i + " " + wallets.get(i).getBalance());
+			    myWriter.write("balance of wallet number " +i + " " + wallets.get(i).getBalance() + System.lineSeparator());
+			    } catch (IOException e) {
+			     System.out.println("An error occurred.");
+			      e.printStackTrace();
+			    }
+			}
+		   myWriter.close();
+		
 		//create genesis transaction, which sends 100 NoobCoin to walletA: 
 		//aprés on va donner à chaque wallets une somme de coins
-		genesisTransaction = new Transaction(coinbase.pbkey, walletA.pbkey, 100f, null);
+		/*genesisTransaction = new Transaction(coinbase.pbkey, walletA.pbkey, 1200f, null);
 		genesisTransaction.generateSignature(coinbase.pvkey);	 //manually sign the genesis transaction	
 		genesisTransaction.transactionId = "0"; //manually set the transaction id
 		genesisTransaction.outputs.add(new TransactionOutput(genesisTransaction.receiver, genesisTransaction.value, genesisTransaction.transactionId)); //manually add the Transactions Output
@@ -42,12 +69,15 @@ public class BlockChain extends Thread{
 		genesis.addTransaction(genesisTransaction);
 		addBlock(genesis);
 		
+		
 		//testing
+		//apres on va appiliquer une boucle qui va choir l'emetteur et le recepteur d'une balance
 		Block block1 = new Block(genesis.hash);
 		System.out.println("\nWalletA's balance is: " + walletA.getBalance());
 		walletA.setUpdateddate(new Date());
-		System.out.println("date de creation du wallet A est"  + walletA.Createddate);
+		System.out.println("date de creation du wallet A est"  + " " + walletA.Createddate);
 		System.out.println("date de modification du wallet A est"  + walletA.Updatedteddate);
+		
 		
 		System.out.println("\nWalletA is Attempting to send funds (40) to WalletB...");
 		block1.addTransaction(walletA.sendFunds(walletB.pbkey, 40f));
@@ -68,8 +98,9 @@ public class BlockChain extends Thread{
 		block3.addTransaction(walletB.sendFunds( walletA.pbkey, 20));
 		System.out.println("\nWalletA's balance is: " + walletA.getBalance());
 		System.out.println("WalletB's balance is: " + walletB.getBalance());
+	   
 		
-		isChainValid();
+		isChainValid();*/
 		
 	}
 	

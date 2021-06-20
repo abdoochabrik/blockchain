@@ -36,6 +36,12 @@ public class BlockChain extends Thread{
 		FileWriter myWriter = new FileWriter("result1.txt");
 		FileWriter myWriter2 = new FileWriter("result2.txt");
 		FileWriter myWriter3 = new FileWriter("result3.txt");
+		FileWriter myWriter4 = new FileWriter("result4.txt");
+		FileWriter myWriter5 = new FileWriter("result5.txt");
+		FileWriter myWriter6 = new FileWriter("result6.txt");
+		FileWriter myWriter7 = new FileWriter("result7.txt");
+		FileWriter myWriter8 = new FileWriter("result8.txt");
+		
 		//generate wallets with balance between 10000 and 100000
 		for (int i = 0; i < 81; i++) {
 			  wallets.add(i, new Wallet());
@@ -51,7 +57,7 @@ public class BlockChain extends Thread{
 			  genesisTransaction.outputs.add(new TransactionOutput(genesisTransaction.receiver, genesisTransaction.value, genesisTransaction.transactionId)); //manually add the Transactions Output
 			  UTXOs.put(genesisTransaction.outputs.get(0).id, genesisTransaction.outputs.get(0));
 			 // System.out.println("balance of wallet number " +i + " " + wallets.get(i).getBalance());
-			    myWriter.write("balance of wallet number " +i + " " + wallets.get(i).getBalance() + wallets.get(i).pbkey  + System.lineSeparator());
+			    myWriter.write("balance of wallet number " +i + " " + wallets.get(i).getBalance()  + System.lineSeparator());
 			    } catch (IOException e) {
 			       System.out.println("An error occurred.");
 			      e.printStackTrace();
@@ -60,7 +66,7 @@ public class BlockChain extends Thread{
 	        myWriter.close();	
 		   
 		//generate wallets with balance between 1000 and 10000
-		/*  for (int i = 81; i <2168 ; i++) {
+		 for (int i = 81; i <281 ; i++) {
 			  wallets.add(i, new Wallet());
 			  Wallet w =  wallets.get(i);
 			  Random rd = new Random();
@@ -82,12 +88,12 @@ public class BlockChain extends Thread{
 			}
 		   myWriter2.close();
 		   
-		 //generate 2000 wallets with balance between 0.1 and 1
-			  for (int i = 2168; i <4168 ; i++) {
+		 //generate wallets with balance between 100 and 1000
+			  for (int i = 281; i <581 ; i++) {
 				  wallets.add(i, new Wallet());
 				  Wallet w =  wallets.get(i);
 				  Random rd = new Random();
-				  double Dbalance = rd.nextDouble() * (1 - 0.1) + 0.1;
+				  double Dbalance = rd.nextDouble() * (1000 - 100) + 100;
 				  float balance = (float) Dbalance;
 				  //float balance = (float) 10.1;
 				  try {
@@ -105,8 +111,124 @@ public class BlockChain extends Thread{
 				}
 			   myWriter3.close();
 			   
-			*/   
-			   
+			   //generate 2000 wallets with balance between 10 and 100
+				  for (int i = 581; i <781 ; i++) {
+					  wallets.add(i, new Wallet());
+					  Wallet w =  wallets.get(i);
+					  Random rd = new Random();
+					  double Dbalance = rd.nextDouble() * (100 - 10) + 10;
+					  float balance = (float) Dbalance;
+					  //float balance = (float) 10.1;
+					  try {
+					  genesisTransaction = new Transaction(coinbase.pbkey, w.pbkey, balance, null);
+					  genesisTransaction.generateSignature(coinbase.pvkey);	 //manually sign the genesis transaction	
+					  genesisTransaction.transactionId = "0"; //manually set the transaction id
+					  genesisTransaction.outputs.add(new TransactionOutput(genesisTransaction.receiver, genesisTransaction.value, genesisTransaction.transactionId)); //manually add the Transactions Output
+					  UTXOs.put(genesisTransaction.outputs.get(0).id, genesisTransaction.outputs.get(0));
+					 // System.out.println("balance of wallet number " +i + " " + wallets.get(i).getBalance());
+					    myWriter4.write("balance of wallet number " +i + " " + wallets.get(i).getBalance() + System.lineSeparator());
+					    } catch (IOException e) {
+					       System.out.println("An error occurred.");
+					      e.printStackTrace();
+					    }
+					}
+				   myWriter4.close();
+			
+				   //generate  wallets with balance between 1 and 10
+					  for (int i = 781; i <981 ; i++) {
+						  wallets.add(i, new Wallet());
+						  Wallet w =  wallets.get(i);
+						  Random rd = new Random();
+						  double Dbalance = rd.nextDouble() * (10 - 1) + 1;
+						  float balance = (float) Dbalance;
+						  //float balance = (float) 10.1;
+						  try {
+						  genesisTransaction = new Transaction(coinbase.pbkey, w.pbkey, balance, null);
+						  genesisTransaction.generateSignature(coinbase.pvkey);	 //manually sign the genesis transaction	
+						  genesisTransaction.transactionId = "0"; //manually set the transaction id
+						  genesisTransaction.outputs.add(new TransactionOutput(genesisTransaction.receiver, genesisTransaction.value, genesisTransaction.transactionId)); //manually add the Transactions Output
+						  UTXOs.put(genesisTransaction.outputs.get(0).id, genesisTransaction.outputs.get(0));
+						 // System.out.println("balance of wallet number " +i + " " + wallets.get(i).getBalance());
+						    myWriter5.write("balance of wallet number " +i + " " + wallets.get(i).getBalance() + System.lineSeparator());
+						    } catch (IOException e) {
+						       System.out.println("An error occurred.");
+						      e.printStackTrace();
+						    }
+						}
+					   myWriter5.close();
+					 
+					   //generate  wallets with balance between 0.1 and 1
+						  for (int i = 981; i <1081 ; i++) {
+							  wallets.add(i, new Wallet());
+							  Wallet w =  wallets.get(i);
+							  Random rd = new Random();
+							  double Dbalance = rd.nextDouble() * (1 - 0.1) + 0.1;
+							  float balance = (float) Dbalance;
+							  //float balance = (float) 10.1;
+							  try {
+							  genesisTransaction = new Transaction(coinbase.pbkey, w.pbkey, balance, null);
+							  genesisTransaction.generateSignature(coinbase.pvkey);	 //manually sign the genesis transaction	
+							  genesisTransaction.transactionId = "0"; //manually set the transaction id
+							  genesisTransaction.outputs.add(new TransactionOutput(genesisTransaction.receiver, genesisTransaction.value, genesisTransaction.transactionId)); //manually add the Transactions Output
+							  UTXOs.put(genesisTransaction.outputs.get(0).id, genesisTransaction.outputs.get(0));
+							 // System.out.println("balance of wallet number " +i + " " + wallets.get(i).getBalance());
+							    myWriter6.write("balance of wallet number " +i + " " + wallets.get(i).getBalance() + System.lineSeparator());
+							    } catch (IOException e) {
+							       System.out.println("An error occurred.");
+							      e.printStackTrace();
+							    }
+							}
+						   myWriter6.close();   
+						   
+						   //generate  wallets with balance between 0.1 and 0.01
+							  for (int i = 1081; i <1281 ; i++) {
+								  wallets.add(i, new Wallet());
+								  Wallet w =  wallets.get(i);
+								  Random rd = new Random();
+								  double Dbalance = rd.nextDouble() * (0.1 - 0.01) + 0.01;
+								  float balance = (float) Dbalance;
+								  //float balance = (float) 10.1;
+								  try {
+								  genesisTransaction = new Transaction(coinbase.pbkey, w.pbkey, balance, null);
+								  genesisTransaction.generateSignature(coinbase.pvkey);	 //manually sign the genesis transaction	
+								  genesisTransaction.transactionId = "0"; //manually set the transaction id
+								  genesisTransaction.outputs.add(new TransactionOutput(genesisTransaction.receiver, genesisTransaction.value, genesisTransaction.transactionId)); //manually add the Transactions Output
+								  UTXOs.put(genesisTransaction.outputs.get(0).id, genesisTransaction.outputs.get(0));
+								 // System.out.println("balance of wallet number " +i + " " + wallets.get(i).getBalance());
+								    myWriter7.write("balance of wallet number " +i + " " + wallets.get(i).getBalance() + System.lineSeparator());
+								    } catch (IOException e) {
+								       System.out.println("An error occurred.");
+								      e.printStackTrace();
+								    }
+								}
+							   myWriter7.close();
+							   
+							   //generate  wallets with balance between 0.01 and 0.001
+								  for (int i = 1281; i <1481 ; i++) {
+									  wallets.add(i, new Wallet());
+									  Wallet w =  wallets.get(i);
+									  Random rd = new Random();
+									  double Dbalance = rd.nextDouble() * (0.1 - 0.01) + 0.01;
+									  float balance = (float) Dbalance;
+									  //float balance = (float) 10.1;
+									  try {
+									  genesisTransaction = new Transaction(coinbase.pbkey, w.pbkey, balance, null);
+									  genesisTransaction.generateSignature(coinbase.pvkey);	 //manually sign the genesis transaction	
+									  genesisTransaction.transactionId = "0"; //manually set the transaction id
+									  genesisTransaction.outputs.add(new TransactionOutput(genesisTransaction.receiver, genesisTransaction.value, genesisTransaction.transactionId)); //manually add the Transactions Output
+									  UTXOs.put(genesisTransaction.outputs.get(0).id, genesisTransaction.outputs.get(0));
+									 // System.out.println("balance of wallet number " +i + " " + wallets.get(i).getBalance());
+									    myWriter8.write("balance of wallet number " +i + " " + wallets.get(i).getBalance() + System.lineSeparator());
+									    } catch (IOException e) {
+									       System.out.println("An error occurred.");
+									      e.printStackTrace();
+									    }
+									}
+								   myWriter8.close();
+
+								   System.out.println(wallets.size());
+								   
+								   
 			   /*
 			   for (int i =5786976 ; i <14502241 ; i++) {
 					  wallets.add(i, new Wallet());
@@ -122,11 +244,11 @@ public class BlockChain extends Thread{
 					  UTXOs.put(genesisTransaction.outputs.get(0).id, genesisTransaction.outputs.get(0));
 					}*/
 			   
-			   
+		   	   
 	       Block genesis = new Block("0");	
 		   System.out.println(wallets.size());
 		   System.out.print("commencement des transactions");
-		   for(int i=0; i<70; i++) { 
+		   for(int i=0; i<1000; i++) { 
 			   Random rand = new Random();
 			   double Dbalance = rand.nextDouble() * (100 - 10) + 10;
 			   float balance = (float) Dbalance;
@@ -135,16 +257,21 @@ public class BlockChain extends Thread{
 			   Wallet randomElement1 = wallets.get(randomIndex1);
 			   Wallet randomElement2 = wallets.get(randomIndex2);
 			   System.out.println("first wallet's balance is " +randomElement1.getBalance());
+			   System.out.println("first wallet's date is " +randomElement1.Updatedteddate);
 			   System.out.println("seconde wallet's balance is " +randomElement2.getBalance());
+			   System.out.println("seconde wallet's date is " +randomElement2.Updatedteddate);
 			   System.out.println("Wallet with adress" +" " +randomElement1 +" " +"is Attempting to send funds" + " " +balance +" " +"to "  +randomElement2 +"...");
 			   //genesis.(randomElement1.sendFunds(randomElement2.pbkey, balance));
 			   Block block1 = new Block(genesis.hash);
 			   block1.addTransaction(randomElement1.sendFunds(randomElement2.pbkey, balance));
+			   randomElement1.setUpdateddate(new Date());
+			   randomElement2.setUpdateddate(new Date());
+			   System.out.println("first wallet's date is " +randomElement1.Updatedteddate);
+			   System.out.println("seconde wallet's date is " +randomElement2.Updatedteddate);
 			   System.out.println("balance's of walett with address" +randomElement1 +" is " + randomElement1.getBalance());
 			   System.out.println("balance's of walett with address" +randomElement2 +" is " + randomElement2.getBalance());
-			   thread.sleep(2000);
-			   //System.out.println(randomElement.getBalance());
-			   
+			   //thread.sleep(1000);
+			   System.out.println("******************************");
 		   }
 		   
 		//create genesis transaction, which sends 100 NoobCoin to walletA: 

@@ -11,13 +11,15 @@ public class Wallet {
 	
 	public PrivateKey pvkey;
 	public PublicKey pbkey;
-	public Date Createddate; 
+	//public Date Createddate; 
 	public Date Updatedteddate; 
 	public HashMap<String,TransactionOutput> UTXOs = new HashMap<String,TransactionOutput>(); //only UTXOs owned by this wallet.
 		
-	public Wallet(){	
+	public Wallet(){
+		
 		generateKeyPair();
-		Createddate = new Date();
+		Updatedteddate = new Date("2018/6/3");
+		
 	}
 		
 	public void setUpdateddate(Date date) {

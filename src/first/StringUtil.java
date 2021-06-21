@@ -3,6 +3,7 @@ package first;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 import java.security.*;
 
 //import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
@@ -84,6 +85,9 @@ public class StringUtil {
 			return new String(new char[difficulty]).replace('\0', '0');
 			
 		}
+		
+		
+		
 
 	
 }

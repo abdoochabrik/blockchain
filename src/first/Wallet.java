@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Wallet {
 	
@@ -15,10 +17,17 @@ public class Wallet {
 	public Date Updatedteddate; 
 	public HashMap<String,TransactionOutput> UTXOs = new HashMap<String,TransactionOutput>(); //only UTXOs owned by this wallet.
 		
+	
 	public Wallet(){
 		
+		Date now = new Date();
+	    long sixMonthsAgo = (now.getTime() - 186624000000l);
+	    long today = now.getTime();
+	    long ms = ThreadLocalRandom.current().nextLong(sixMonthsAgo, today);
+        Updatedteddate = new Date(ms);
+		
 		generateKeyPair();
-		Updatedteddate = new Date("2018/6/3");
+		
 		
 	}
 		
